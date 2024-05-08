@@ -1,10 +1,12 @@
 package anhembimorumbi.com.br;
 
+import static anhembimorumbi.com.br.util.Constantes.PAPEL_PNG;
+import static anhembimorumbi.com.br.util.Constantes.TESOURA_PNG;
+
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -19,6 +21,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import anhembimorumbi.com.br.util.Constantes;
+import anhembimorumbi.com.br.util.Utils;
 
 public class Tela extends JFrame {
 
@@ -56,9 +61,9 @@ public class Tela extends JFrame {
         });
     }
 
-    public Tela() throws InterruptedException {
+    public Tela() {
         super("A3 - Jokenpo");
-        setIconImage(Toolkit.getDefaultToolkit().getImage("/a3/resource/1.png"));
+        //setIconImage(Toolkit.getDefaultToolkit().getImage("/a3/resource/1.png"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 495, 422);
         contentPane = new JPanel();
@@ -91,17 +96,7 @@ public class Tela extends JFrame {
 
         btnTe = new JButton("");
         btnTe.setBackground(new Color(0, 0, 0));
-        try {
-            BufferedImage originalImage = ImageIO.read(new File("C:\\Users\\antonio.rodrigues\\Documents\\workspacejavaestudo\\A3 jogo\\a3\\resource\\tesoura.png"));
-            Image resizedImage = originalImage.getScaledInstance(147, 112, Image.SCALE_SMOOTH); // Redimensiona a imagem para caber no botão
-            // Cria um ImageIcon com a imagem redimensionada
-            ImageIcon icon3 = new ImageIcon(resizedImage);
-            // Define o ícone para o botão
-            btnTe.setIcon(icon3);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // btnTe.setIcon(new ImageIcon("/a3/resource/tesoura.png"));
+        btnTe.setIcon(Utils.renderizandoIcone(TESOURA_PNG));
         btnTe.addActionListener(new ActionListener() {
 
             @Override
@@ -120,17 +115,7 @@ public class Tela extends JFrame {
 
         btnPapel = new JButton("");
         btnPapel.setBackground(new Color(0, 0, 0));
-        try {
-            BufferedImage originalImage = ImageIO.read(new File("C:\\Users\\antonio.rodrigues\\Documents\\workspacejavaestudo\\A3 jogo\\a3\\resource\\papel.png"));
-            Image resizedImage = originalImage.getScaledInstance(147, 112, Image.SCALE_SMOOTH); // Redimensiona a imagem para caber no botão
-            // Cria um ImageIcon com a imagem redimensionada
-            ImageIcon icon = new ImageIcon(resizedImage);
-            // Define o ícone para o botão
-            btnPapel.setIcon(icon);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // btnPapel.setIcon(new ImageIcon("C:\\Users\\antonio.rodrigues\\Documents\\workspacejavaestudo\\A3 jogo\\a3\\resource\\papel.png"));
+        btnPapel.setIcon(Utils.renderizandoIcone(PAPEL_PNG));
         btnPapel.addActionListener(new ActionListener() {
 
             @Override
@@ -255,7 +240,6 @@ public class Tela extends JFrame {
                     e.printStackTrace();
                 }
                 break;
-
 
         }
         int computador = (int) (Math.random() * 3 + 1);
