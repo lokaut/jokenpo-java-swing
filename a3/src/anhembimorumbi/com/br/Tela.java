@@ -1,19 +1,15 @@
 package anhembimorumbi.com.br;
 
 import static anhembimorumbi.com.br.util.Constantes.PAPEL_PNG;
+import static anhembimorumbi.com.br.util.Constantes.PEDRA_PNG;
 import static anhembimorumbi.com.br.util.Constantes.TESOURA_PNG;
+import static anhembimorumbi.com.br.util.Utils.renderizandoIcone;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,7 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import anhembimorumbi.com.br.util.Constantes;
 import anhembimorumbi.com.br.util.Utils;
 
 public class Tela extends JFrame {
@@ -45,27 +40,10 @@ public class Tela extends JFrame {
 
     private JButton btnRecomecar;
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    Tela frame = new Tela();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
-    }
-
     public Tela() {
         super("A3 - Jokenpo");
         //setIconImage(Toolkit.getDefaultToolkit().getImage("/a3/resource/1.png"));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 495, 422);
+      setBounds(400, 150, 495, 422);
         contentPane = new JPanel();
         contentPane.setForeground(new Color(255, 255, 255));
         contentPane.setBackground(new Color(0, 0, 0));
@@ -86,15 +64,17 @@ public class Tela extends JFrame {
         subTitulo.setBounds(281, 60, 130, 107);
         contentPane.add(subTitulo);
 
+        //entender isso aq
         jogadorImg = new JLabel("");
         jogadorImg.setBounds(47, 142, 130, 107);
         contentPane.add(jogadorImg);
 
+        //entender isso aq
         computadorImg = new JLabel("");
         computadorImg.setBounds(299, 142, 139, 116);
         contentPane.add(computadorImg);
 
-        btnTe = new JButton("");
+        btnTe = new JButton(renderizandoIcone(TESOURA_PNG));
         btnTe.setBackground(new Color(0, 0, 0));
         btnTe.setIcon(Utils.renderizandoIcone(TESOURA_PNG));
         btnTe.addActionListener(new ActionListener() {
@@ -133,17 +113,7 @@ public class Tela extends JFrame {
 
         btnPedra = new JButton("");
         btnPedra.setBackground(new Color(0, 0, 0));
-        btnPedra.setIcon(new ImageIcon("/a3/resource/tesoura.png"));
-        try {
-            BufferedImage originalImage = ImageIO.read(new File("C:\\Users\\antonio.rodrigues\\Documents\\workspacejavaestudo\\A3 jogo\\a3\\resource\\pedra.png"));
-            Image resizedImage = originalImage.getScaledInstance(147, 112, Image.SCALE_SMOOTH); // Redimensiona a imagem para caber no botão
-            // Cria um ImageIcon com a imagem redimensionada
-            ImageIcon icon2 = new ImageIcon(resizedImage);
-            // Define o ícone para o botão
-            btnPedra.setIcon(icon2);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        btnPedra.setIcon(Utils.renderizandoIcone(PEDRA_PNG));
         btnPedra.addActionListener(new ActionListener() {
 
             @Override
@@ -171,7 +141,7 @@ public class Tela extends JFrame {
         empate.setVisible(false);
 
         jogadorGanhou = new JLabel("Você ganhou");
-        jogadorGanhou.setBounds(90, 308, 245, 54);
+        jogadorGanhou.setBounds(120, 308, 245, 54);
         jogadorGanhou.setFont(new Font("Tahoma", Font.BOLD, 30));
         jogadorGanhou.setForeground(new Color(255, 255, 255));
         jogadorGanhou.setHorizontalAlignment(SwingConstants.CENTER);
@@ -186,8 +156,9 @@ public class Tela extends JFrame {
         contentPane.add(computadorGanhou);
         computadorGanhou.setVisible(false);
 
-        btnRecomecar = new JButton("reiniciar");
+        btnRecomecar = new JButton("Reiniciar");
         btnRecomecar.setBounds(150, 360, 200, 30); // Ajuste as dimensões conforme necessário
+        btnRecomecar.setFont(new Font("Tahoma", Font.BOLD, 20));
         btnRecomecar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -203,42 +174,18 @@ public class Tela extends JFrame {
 
         switch (jogador) {
             case 1:
-                try {
-                    BufferedImage originalImage = ImageIO.read(new File("C:\\Users\\antonio.rodrigues\\Documents\\workspacejavaestudo\\A3 jogo\\a3\\resource\\pedra.png"));
-                    Image resizedImage = originalImage.getScaledInstance(147, 112, Image.SCALE_SMOOTH); // Redimensiona a imagem para caber no botão
-                    // Cria um ImageIcon com a imagem redimensionada
-                    ImageIcon icon2 = new ImageIcon(resizedImage);
-                    // Define o ícone para o botão
-                    jogadorImg.setIcon(icon2);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                ImageIcon iconePedra= Utils.renderizandoIcone(PEDRA_PNG);
+                jogadorImg.setIcon(iconePedra);
                 break;
 
             case 2:
-                try {
-                    BufferedImage originalImage = ImageIO.read(new File("C:\\Users\\antonio.rodrigues\\Documents\\workspacejavaestudo\\A3 jogo\\a3\\resource\\papel.png"));
-                    Image resizedImage = originalImage.getScaledInstance(147, 112, Image.SCALE_SMOOTH); // Redimensiona a imagem para caber no botão
-                    // Cria um ImageIcon com a imagem redimensionada
-                    ImageIcon icon2 = new ImageIcon(resizedImage);
-                    // Define o ícone para o botão
-                    jogadorImg.setIcon(icon2);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                ImageIcon iconePapel = Utils.renderizandoIcone(PAPEL_PNG);
+                jogadorImg.setIcon(iconePapel);
                 break;
 
             case 3:
-                try {
-                    BufferedImage originalImage = ImageIO.read(new File("C:\\Users\\antonio.rodrigues\\Documents\\workspacejavaestudo\\A3 jogo\\a3\\resource\\tesoura.png"));
-                    Image resizedImage = originalImage.getScaledInstance(147, 112, Image.SCALE_SMOOTH); // Redimensiona a imagem para caber no botão
-                    // Cria um ImageIcon com a imagem redimensionada
-                    ImageIcon icon2 = new ImageIcon(resizedImage);
-                    // Define o ícone para o botão
-                    jogadorImg.setIcon(icon2);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                ImageIcon iconeTesoura = Utils.renderizandoIcone(TESOURA_PNG);
+                jogadorImg.setIcon(iconeTesoura);
                 break;
 
         }
@@ -246,42 +193,18 @@ public class Tela extends JFrame {
 
         switch (computador) {
             case 1:
-                try {
-                    BufferedImage originalImage = ImageIO.read(new File("C:\\Users\\antonio.rodrigues\\Documents\\workspacejavaestudo\\A3 jogo\\a3\\resource\\pedra.png"));
-                    Image resizedImage = originalImage.getScaledInstance(147, 112, Image.SCALE_SMOOTH); // Redimensiona a imagem para caber no botão
-                    // Cria um ImageIcon com a imagem redimensionada
-                    ImageIcon icon2 = new ImageIcon(resizedImage);
-                    // Define o ícone para o botão
-                    jogadorImg.setIcon(icon2);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                ImageIcon iconePedra= Utils.renderizandoIcone(PEDRA_PNG);
+                computadorImg.setIcon(iconePedra);
                 break;
 
             case 2:
-                try {
-                    BufferedImage originalImage = ImageIO.read(new File("C:\\Users\\antonio.rodrigues\\Documents\\workspacejavaestudo\\A3 jogo\\a3\\resource\\papel.png"));
-                    Image resizedImage = originalImage.getScaledInstance(147, 112, Image.SCALE_SMOOTH); // Redimensiona a imagem para caber no botão
-                    // Cria um ImageIcon com a imagem redimensionada
-                    ImageIcon icon2 = new ImageIcon(resizedImage);
-                    // Define o ícone para o botão
-                    jogadorImg.setIcon(icon2);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                ImageIcon iconePapel = Utils.renderizandoIcone(PAPEL_PNG);
+                computadorImg.setIcon(iconePapel);
                 break;
 
             case 3:
-                try {
-                    BufferedImage originalImage = ImageIO.read(new File("C:\\Users\\antonio.rodrigues\\Documents\\workspacejavaestudo\\A3 jogo\\a3\\resource\\tesoura.png"));
-                    Image resizedImage = originalImage.getScaledInstance(147, 112, Image.SCALE_SMOOTH); // Redimensiona a imagem para caber no botão
-                    // Cria um ImageIcon com a imagem redimensionada
-                    ImageIcon icon2 = new ImageIcon(resizedImage);
-                    // Define o ícone para o botão
-                    jogadorImg.setIcon(icon2);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                ImageIcon iconeTesoura = Utils.renderizandoIcone(TESOURA_PNG);
+                computadorImg.setIcon(iconeTesoura);
                 break;
         }
 
@@ -298,7 +221,6 @@ public class Tela extends JFrame {
     }
 
     private void recomecarJogo() {
-        // Resetar as condições iniciais do jogo aqui
         btnPedra.setVisible(true);
         btnPapel.setVisible(true);
         btnTe.setVisible(true);
