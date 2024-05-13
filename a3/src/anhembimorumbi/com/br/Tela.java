@@ -1,7 +1,10 @@
 package anhembimorumbi.com.br;
 
+import static anhembimorumbi.com.br.util.Constantes.PAPEL;
 import static anhembimorumbi.com.br.util.Constantes.PAPEL_PNG;
+import static anhembimorumbi.com.br.util.Constantes.PEDRA;
 import static anhembimorumbi.com.br.util.Constantes.PEDRA_PNG;
+import static anhembimorumbi.com.br.util.Constantes.TESOURA;
 import static anhembimorumbi.com.br.util.Constantes.TESOURA_PNG;
 import static anhembimorumbi.com.br.util.Utils.renderizandoIcone;
 
@@ -18,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import anhembimorumbi.com.br.util.Constantes;
 import anhembimorumbi.com.br.util.Utils;
 
 public class Tela extends JFrame {
@@ -42,8 +46,8 @@ public class Tela extends JFrame {
 
     public Tela() {
         super("A3 - Jokenpo");
-        //setIconImage(Toolkit.getDefaultToolkit().getImage("/a3/resource/1.png"));
-      setBounds(400, 150, 495, 422);
+        // setIconImage(Toolkit.getDefaultToolkit().getImage("/a3/resource/1.png"));
+        setBounds(400, 150, 495, 522);
         contentPane = new JPanel();
         contentPane.setForeground(new Color(255, 255, 255));
         contentPane.setBackground(new Color(0, 0, 0));
@@ -64,12 +68,10 @@ public class Tela extends JFrame {
         subTitulo.setBounds(281, 60, 130, 107);
         contentPane.add(subTitulo);
 
-        //entender isso aq
         jogadorImg = new JLabel("");
         jogadorImg.setBounds(47, 142, 130, 107);
         contentPane.add(jogadorImg);
 
-        //entender isso aq
         computadorImg = new JLabel("");
         computadorImg.setBounds(299, 142, 139, 116);
         contentPane.add(computadorImg);
@@ -81,13 +83,14 @@ public class Tela extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                jogador = 3;
+                jogador = TESOURA;
                 btnPedra.setVisible(false);
                 btnPapel.setVisible(false);
                 btnTe.setVisible(false);
                 jogo();
 
             }
+
         });
 
         btnTe.setBounds(315, 260, 139, 112);
@@ -100,7 +103,7 @@ public class Tela extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                jogador = 2;
+                jogador = PAPEL;
                 btnPedra.setVisible(false);
                 btnPapel.setVisible(false);
                 btnTe.setVisible(false);
@@ -109,7 +112,7 @@ public class Tela extends JFrame {
             }
         });
         btnPapel.setBounds(169, 260, 147, 112);
-        contentPane.add(btnPapel); // esse cara que rederiza
+        contentPane.add(btnPapel);
 
         btnPedra = new JButton("");
         btnPedra.setBackground(new Color(0, 0, 0));
@@ -118,7 +121,7 @@ public class Tela extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                jogador = 1;
+                jogador = PEDRA;
                 btnPedra.setVisible(false);
                 btnPapel.setVisible(false);
                 btnTe.setVisible(false);
@@ -128,19 +131,19 @@ public class Tela extends JFrame {
         });
 
         btnPedra.setBounds(22, 260, 147, 112);
-        contentPane.add(btnPedra); // esse cara que rederiza7
+        contentPane.add(btnPedra);
 
         // label vitorias
 
-        empate = new JLabel("EMPATE");
-        empate.setBounds(145, 308, 171, 54);
+        empate = new JLabel("Empate");
+        empate.setBounds(120, 308, 245, 54);
         empate.setFont(new Font("Tahoma", Font.BOLD, 30));
         empate.setForeground(new Color(255, 255, 255));
         empate.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(empate);
         empate.setVisible(false);
 
-        jogadorGanhou = new JLabel("Você ganhou");
+        jogadorGanhou = new JLabel("Você Ganhou");
         jogadorGanhou.setBounds(120, 308, 245, 54);
         jogadorGanhou.setFont(new Font("Tahoma", Font.BOLD, 30));
         jogadorGanhou.setForeground(new Color(255, 255, 255));
@@ -149,7 +152,7 @@ public class Tela extends JFrame {
         jogadorGanhou.setVisible(false);
 
         computadorGanhou = new JLabel("Você Perdeu");
-        computadorGanhou.setBounds(90, 308, 245, 54);
+        computadorGanhou.setBounds(120, 308, 245, 54);
         computadorGanhou.setFont(new Font("Tahoma", Font.BOLD, 30));
         computadorGanhou.setForeground(new Color(255, 255, 255));
         computadorGanhou.setHorizontalAlignment(SwingConstants.CENTER);
@@ -157,7 +160,9 @@ public class Tela extends JFrame {
         computadorGanhou.setVisible(false);
 
         btnRecomecar = new JButton("Reiniciar");
-        btnRecomecar.setBounds(150, 360, 200, 30); // Ajuste as dimensões conforme necessário
+        btnRecomecar.setBounds(150, 390, 200, 30);
+        btnRecomecar.setForeground(new Color(255, 255, 255));
+        btnRecomecar.setBackground(new Color(0, 0, 0));
         btnRecomecar.setFont(new Font("Tahoma", Font.BOLD, 20));
         btnRecomecar.addActionListener(new ActionListener() {
             @Override
@@ -171,53 +176,58 @@ public class Tela extends JFrame {
     }
 
     private void jogo() {
+        atualizarEscolhaJogador(this.jogador);
+        int computador = atualizarEscolhaComputador();
+        determinarResultado(computador);
 
+    }
+
+    private void determinarResultado(int computador) {
+        if (jogador == computador) {
+            empate.setVisible(true);
+        } else if ((jogador == PEDRA && computador == TESOURA) || (jogador == PAPEL && computador == PEDRA) || (jogador == TESOURA && computador == PAPEL)) {
+            jogadorGanhou.setVisible(true);
+        } else {
+            computadorGanhou.setVisible(true);
+        }
+        btnRecomecar.setVisible(true); // Mostrar o botão recomeçar após o resultado
+    }
+
+    private void atualizarEscolhaJogador(int jogador) {
         switch (jogador) {
-            case 1:
-                ImageIcon iconePedra= Utils.renderizandoIcone(PEDRA_PNG);
+            case PEDRA:
+                ImageIcon iconePedra = Utils.renderizandoIcone(PEDRA_PNG);
                 jogadorImg.setIcon(iconePedra);
                 break;
-
-            case 2:
+            case PAPEL:
                 ImageIcon iconePapel = Utils.renderizandoIcone(PAPEL_PNG);
                 jogadorImg.setIcon(iconePapel);
                 break;
-
-            case 3:
+            case TESOURA:
                 ImageIcon iconeTesoura = Utils.renderizandoIcone(TESOURA_PNG);
                 jogadorImg.setIcon(iconeTesoura);
                 break;
-
         }
-        int computador = (int) (Math.random() * 3 + 1);
+    }
 
+    private int atualizarEscolhaComputador() {
+        int computador = (int) (Math.random() * 3 + 1);
         switch (computador) {
-            case 1:
-                ImageIcon iconePedra= Utils.renderizandoIcone(PEDRA_PNG);
+            case PEDRA:
+                ImageIcon iconePedra = Utils.renderizandoIcone(PEDRA_PNG);
                 computadorImg.setIcon(iconePedra);
                 break;
-
-            case 2:
+            case PAPEL:
                 ImageIcon iconePapel = Utils.renderizandoIcone(PAPEL_PNG);
                 computadorImg.setIcon(iconePapel);
                 break;
-
-            case 3:
+            case TESOURA:
                 ImageIcon iconeTesoura = Utils.renderizandoIcone(TESOURA_PNG);
                 computadorImg.setIcon(iconeTesoura);
                 break;
         }
 
-        if (jogador == computador) {
-            empate.setVisible(true);
-        } else if ((jogador == 1 && computador == 3) || (jogador == 2 && computador == 1) || (jogador == 3 && computador == 2)) {
-            jogadorGanhou.setVisible(true);
-        } else {
-            computadorGanhou.setVisible(true);
-        }
-
-        btnRecomecar.setVisible(true); // Mostrar o botão recomeçar após o resultado
-
+        return computador;
     }
 
     private void recomecarJogo() {
@@ -229,7 +239,7 @@ public class Tela extends JFrame {
         computadorGanhou.setVisible(false);
         jogadorImg.setIcon(null);
         computadorImg.setIcon(null);
-        btnRecomecar.setVisible(false); // Esconder o botão de recomeçar até a próxima finalização
+        btnRecomecar.setVisible(false);
     }
 
 }
