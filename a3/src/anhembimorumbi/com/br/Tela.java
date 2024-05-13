@@ -29,9 +29,13 @@ public class Tela extends JFrame {
     private JPanel contentPane;
 
     JButton btnPedra;
+    
     JButton btnPapel;
+    
     JButton btnTe;
-    int jogador = 0;
+    
+    int escolhaJogador = 0;
+    
     private JLabel jogadorImg;
 
     private JLabel computadorImg;
@@ -55,84 +59,33 @@ public class Tela extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        JLabel tituloGame = new JLabel("JO KEN PÔ");
-        tituloGame.setForeground(new Color(255, 255, 255));
-        tituloGame.setHorizontalAlignment(SwingConstants.CENTER);
-        tituloGame.setFont(new Font("Tahoma", Font.BOLD, 32));
-        tituloGame.setBounds(70, 40, 348, 56);
-        contentPane.add(tituloGame);
+        configurandoTela();
 
-        JLabel subTitulo = new JLabel("ULTRA");
-        subTitulo.setFont(new Font("Rage", Font.BOLD, 20));
-        subTitulo.setForeground(new Color(255, 255, 255));
-        subTitulo.setBounds(281, 60, 130, 107);
-        contentPane.add(subTitulo);
+        configurandoBotoes();
 
-        jogadorImg = new JLabel("");
-        jogadorImg.setBounds(47, 142, 130, 107);
-        contentPane.add(jogadorImg);
+        configurarLabels();
 
-        computadorImg = new JLabel("");
-        computadorImg.setBounds(299, 142, 139, 116);
-        contentPane.add(computadorImg);
+        //botaoRecomecar();
 
-        btnTe = new JButton(renderizandoIcone(TESOURA_PNG));
-        btnTe.setBackground(new Color(0, 0, 0));
-        btnTe.setIcon(Utils.renderizandoIcone(TESOURA_PNG));
-        btnTe.addActionListener(new ActionListener() {
+    }
 
+    private void botaoRecomecar() {
+        btnRecomecar = new JButton("Reiniciar");
+        btnRecomecar.setBounds(150, 390, 200, 30);
+        btnRecomecar.setForeground(new Color(255, 255, 255));
+        btnRecomecar.setBackground(new Color(0, 0, 0));
+        btnRecomecar.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btnRecomecar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                jogador = TESOURA;
-                btnPedra.setVisible(false);
-                btnPapel.setVisible(false);
-                btnTe.setVisible(false);
-                jogo();
-
-            }
-
-        });
-
-        btnTe.setBounds(315, 260, 139, 112);
-        contentPane.add(btnTe);
-
-        btnPapel = new JButton("");
-        btnPapel.setBackground(new Color(0, 0, 0));
-        btnPapel.setIcon(Utils.renderizandoIcone(PAPEL_PNG));
-        btnPapel.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                jogador = PAPEL;
-                btnPedra.setVisible(false);
-                btnPapel.setVisible(false);
-                btnTe.setVisible(false);
-                jogo();
-
+                recomecarJogo();
             }
         });
-        btnPapel.setBounds(169, 260, 147, 112);
-        contentPane.add(btnPapel);
+        contentPane.add(btnRecomecar);
+        btnRecomecar.setVisible(false); // Começa invisível
+    }
 
-        btnPedra = new JButton("");
-        btnPedra.setBackground(new Color(0, 0, 0));
-        btnPedra.setIcon(Utils.renderizandoIcone(PEDRA_PNG));
-        btnPedra.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                jogador = PEDRA;
-                btnPedra.setVisible(false);
-                btnPapel.setVisible(false);
-                btnTe.setVisible(false);
-                jogo();
-
-            }
-        });
-
-        btnPedra.setBounds(22, 260, 147, 112);
-        contentPane.add(btnPedra);
-
+    private void configurarLabels() {
         // label vitorias
 
         empate = new JLabel("Empate");
@@ -158,34 +111,102 @@ public class Tela extends JFrame {
         computadorGanhou.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(computadorGanhou);
         computadorGanhou.setVisible(false);
+    }
 
-        btnRecomecar = new JButton("Reiniciar");
-        btnRecomecar.setBounds(150, 390, 200, 30);
-        btnRecomecar.setForeground(new Color(255, 255, 255));
-        btnRecomecar.setBackground(new Color(0, 0, 0));
-        btnRecomecar.setFont(new Font("Tahoma", Font.BOLD, 20));
-        btnRecomecar.addActionListener(new ActionListener() {
+    private void configurandoBotoes() {
+        jogadorImg = new JLabel("");
+        jogadorImg.setBounds(47, 142, 130, 107);
+        contentPane.add(jogadorImg);
+
+        computadorImg = new JLabel("");
+        computadorImg.setBounds(299, 142, 139, 116);
+        contentPane.add(computadorImg);
+
+        btnTe = new JButton(renderizandoIcone(TESOURA_PNG));
+        btnTe.setBackground(new Color(0, 0, 0));
+        btnTe.setIcon(Utils.renderizandoIcone(TESOURA_PNG));
+        btnTe.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                recomecarJogo();
+                escolhaJogador = TESOURA;
+                btnPedra.setVisible(false);
+                btnPapel.setVisible(false);
+                btnTe.setVisible(false);
+                jogo();
+
+            }
+
+        });
+
+        btnTe.setBounds(315, 260, 139, 112);
+        contentPane.add(btnTe);
+
+        btnPapel = new JButton("");
+        btnPapel.setBackground(new Color(0, 0, 0));
+        btnPapel.setIcon(Utils.renderizandoIcone(PAPEL_PNG));
+        btnPapel.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                escolhaJogador = PAPEL;
+                btnPedra.setVisible(false);
+                btnPapel.setVisible(false);
+                btnTe.setVisible(false);
+                jogo();
+
             }
         });
-        contentPane.add(btnRecomecar);
-        btnRecomecar.setVisible(false); // Começa invisível
+        btnPapel.setBounds(169, 260, 147, 112);
+        contentPane.add(btnPapel);
 
+        btnPedra = new JButton("");
+        btnPedra.setBackground(new Color(0, 0, 0));
+        btnPedra.setIcon(Utils.renderizandoIcone(PEDRA_PNG));
+        btnPedra.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                escolhaJogador = PEDRA;
+                btnPedra.setVisible(false);
+                btnPapel.setVisible(false);
+                btnTe.setVisible(false);
+                jogo();
+
+            }
+        });
+
+        btnPedra.setBounds(22, 260, 147, 112);
+        contentPane.add(btnPedra);
+    }
+
+    private void configurandoTela() {
+        JLabel tituloGame = new JLabel("JO KEN PÔ");
+        tituloGame.setForeground(new Color(255, 255, 255));
+        tituloGame.setHorizontalAlignment(SwingConstants.CENTER);
+        tituloGame.setFont(new Font("Tahoma", Font.BOLD, 32));
+        tituloGame.setBounds(70, 40, 348, 56);
+        contentPane.add(tituloGame);
+
+        JLabel subTitulo = new JLabel("ULTRA");
+        subTitulo.setFont(new Font("Rage", Font.BOLD, 20));
+        subTitulo.setForeground(new Color(255, 255, 255));
+        subTitulo.setBounds(281, 60, 130, 107);
+        contentPane.add(subTitulo);
     }
 
     private void jogo() {
-        atualizarEscolhaJogador(this.jogador);
+        atualizarEscolhaJogador(this.escolhaJogador);
         int computador = atualizarEscolhaComputador();
+        botaoRecomecar();
         determinarResultado(computador);
 
     }
 
-    private void determinarResultado(int computador) {
-        if (jogador == computador) {
+    private void determinarResultado(int escolhaComputador) {
+        if (escolhaJogador == escolhaComputador) {
             empate.setVisible(true);
-        } else if ((jogador == PEDRA && computador == TESOURA) || (jogador == PAPEL && computador == PEDRA) || (jogador == TESOURA && computador == PAPEL)) {
+        } else if ((escolhaJogador == PEDRA && escolhaComputador == TESOURA) || (escolhaJogador == PAPEL && escolhaComputador == PEDRA) || (escolhaJogador == TESOURA && escolhaComputador == PAPEL)) {
             jogadorGanhou.setVisible(true);
         } else {
             computadorGanhou.setVisible(true);

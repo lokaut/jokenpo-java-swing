@@ -60,3 +60,8 @@ local.properties
 #.project
 a3/.classpath
 a3/.project
+a3/.idea/vcs.xml
+.idea/vcs.xml
+.classpath
+.idea/workspace.xml
+.classpath
