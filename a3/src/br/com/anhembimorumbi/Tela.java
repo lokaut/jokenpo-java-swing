@@ -1,13 +1,13 @@
-package anhembimorumbi.com.br;
+package br.com.anhembimorumbi;
 
-import static anhembimorumbi.com.br.util.Constantes.FONT_MENSSAGENS;
-import static anhembimorumbi.com.br.util.Constantes.PAPEL;
-import static anhembimorumbi.com.br.util.Constantes.PAPEL_PNG;
-import static anhembimorumbi.com.br.util.Constantes.PEDRA;
-import static anhembimorumbi.com.br.util.Constantes.PEDRA_PNG;
-import static anhembimorumbi.com.br.util.Constantes.TESOURA;
-import static anhembimorumbi.com.br.util.Constantes.TESOURA_PNG;
-import static anhembimorumbi.com.br.util.Utils.renderizandoIcone;
+import static br.com.anhembimorumbi.util.Constantes.FONT_MENSSAGENS;
+import static br.com.anhembimorumbi.util.Constantes.PAPEL;
+import static br.com.anhembimorumbi.util.Constantes.PAPEL_PNG;
+import static br.com.anhembimorumbi.util.Constantes.PEDRA;
+import static br.com.anhembimorumbi.util.Constantes.PEDRA_PNG;
+import static br.com.anhembimorumbi.util.Constantes.TESOURA;
+import static br.com.anhembimorumbi.util.Constantes.TESOURA_PNG;
+import static br.com.anhembimorumbi.util.Utils.renderizandoIcone;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import anhembimorumbi.com.br.util.Utils;
+import br.com.anhembimorumbi.util.Utils;
 
 public class Tela extends JFrame {
 
@@ -84,12 +84,23 @@ public class Tela extends JFrame {
     }
 
     private void configurarLabels() {
+        JLabel playerLabel = new JLabel("Jogador");
+        playerLabel.setBounds(80, 258, 245, 54);
+        playerLabel.setForeground(new Color(255, 255, 255));
+        playerLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+        
+        JLabel cpu = new JLabel("CPU");
+        cpu.setBounds(350, 258, 245, 54);
+        cpu.setForeground(new Color(255, 255, 255));
+        cpu.setFont(new Font("Tahoma", Font.BOLD, 20));
+        
         empate = new JLabel("Empate");
         empate.setBounds(120, 308, 245, 54);
         empate.setFont(FONT_MENSSAGENS);
         empate.setForeground(new Color(255, 255, 255));
         empate.setHorizontalAlignment(SwingConstants.CENTER);
-        contentPane.add(empate);
+
+        contentPane.add(cpu);
         empate.setVisible(false);
 
         jogadorGanhou = new JLabel("Você Ganhou");
@@ -107,14 +118,17 @@ public class Tela extends JFrame {
         computadorGanhou.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(computadorGanhou);
         computadorGanhou.setVisible(false);
+        
+        contentPane.add(empate);
+        contentPane.add(playerLabel);
     }
 
     private void configurandoBotoes() {
-        jogadorImg = new JLabel("");
+        jogadorImg = new JLabel();
         jogadorImg.setBounds(47, 142, 130, 107);
         contentPane.add(jogadorImg);
 
-        computadorImg = new JLabel("");
+        computadorImg = new JLabel();
         computadorImg.setBounds(299, 142, 139, 116);
         contentPane.add(computadorImg);
 

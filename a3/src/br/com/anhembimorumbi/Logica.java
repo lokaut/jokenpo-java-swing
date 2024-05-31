@@ -1,13 +1,13 @@
-package anhembimorumbi.com.br;
+package br.com.anhembimorumbi;
 
-import static anhembimorumbi.com.br.util.Constantes.PAPEL;
-import static anhembimorumbi.com.br.util.Constantes.PEDRA;
-import static anhembimorumbi.com.br.util.Constantes.TESOURA;
+import static br.com.anhembimorumbi.util.Constantes.PAPEL;
+import static br.com.anhembimorumbi.util.Constantes.PEDRA;
+import static br.com.anhembimorumbi.util.Constantes.TESOURA;
 
 import javax.swing.JLabel;
 
-import anhembimorumbi.com.br.util.Constantes;
-import anhembimorumbi.com.br.util.Utils;
+import br.com.anhembimorumbi.util.Constantes;
+import br.com.anhembimorumbi.util.Utils;
 
 public class Logica  implements Jogadas{
 

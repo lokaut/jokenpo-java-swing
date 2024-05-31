@@ -1,4 +1,4 @@
-package anhembimorumbi.com.br;
+package br.com.anhembimorumbi;
 
 public interface Jogadas {
 

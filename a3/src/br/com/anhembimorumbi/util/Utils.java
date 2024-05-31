@@ -1,4 +1,4 @@
-package anhembimorumbi.com.br.util;
+package br.com.anhembimorumbi.util;
 
 import static java.awt.Image.SCALE_SMOOTH;
 
