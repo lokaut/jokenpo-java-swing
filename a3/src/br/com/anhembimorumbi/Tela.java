@@ -31,7 +31,7 @@ public class Tela extends JFrame {
     
     private JButton btnPapel;
     
-    private JButton btnTe;
+    private JButton btnTesoura;
     
     private JButton btnRecomecar;
 
@@ -44,7 +44,6 @@ public class Tela extends JFrame {
     private JLabel jogadorGanhou;
     
     private JLabel computadorGanhou;
-    
 
     private Logica logica;
 
@@ -59,11 +58,10 @@ public class Tela extends JFrame {
         contentPane.setLayout(null);
         setResizable(false);
 
-        configurandoTela();
+        configurandoTitulos();
         configurandoBotoes();
         configurarLabels();
 
-        logica = new Logica(jogadorImg, computadorImg);
         botaoRecomecar();
     }
 
@@ -100,7 +98,6 @@ public class Tela extends JFrame {
         empate.setForeground(new Color(255, 255, 255));
         empate.setHorizontalAlignment(SwingConstants.CENTER);
 
-        contentPane.add(cpu);
         empate.setVisible(false);
 
         jogadorGanhou = new JLabel("Você Ganhou");
@@ -120,6 +117,7 @@ public class Tela extends JFrame {
         computadorGanhou.setVisible(false);
         
         contentPane.add(empate);
+        contentPane.add(cpu);
         contentPane.add(playerLabel);
     }
 
@@ -132,18 +130,20 @@ public class Tela extends JFrame {
         computadorImg.setBounds(299, 142, 139, 116);
         contentPane.add(computadorImg);
 
-        btnTe = new JButton(renderizandoIcone(TESOURA_PNG));
-        btnTe.setBackground(new Color(0, 0, 0));
-        btnTe.setIcon(Utils.renderizandoIcone(TESOURA_PNG));
-        btnTe.addActionListener(new ActionListener() {
+        logica = new Logica(jogadorImg, computadorImg);
+        
+        btnTesoura = new JButton(renderizandoIcone(TESOURA_PNG));
+        btnTesoura.setBackground(new Color(0, 0, 0));
+        btnTesoura.setIcon(Utils.renderizandoIcone(TESOURA_PNG));
+        btnTesoura.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 logica.setOpcaoJogador(TESOURA);
                 executarJogo();
             }
         });
-        btnTe.setBounds(315, 260, 139, 112);
-        contentPane.add(btnTe);
+        btnTesoura.setBounds(315, 260, 139, 112);
+        contentPane.add(btnTesoura);
 
         btnPapel = new JButton(renderizandoIcone(PAPEL_PNG));
         btnPapel.setBackground(new Color(0, 0, 0));
@@ -172,7 +172,7 @@ public class Tela extends JFrame {
         contentPane.add(btnPedra);
     }
 
-    private void configurandoTela() {
+    private void configurandoTitulos() {
         JLabel tituloGame = new JLabel("JO KEN PÔ");
         tituloGame.setForeground(new Color(255, 255, 255));
         tituloGame.setHorizontalAlignment(SwingConstants.CENTER);
@@ -197,7 +197,7 @@ public class Tela extends JFrame {
     private void esconderBotoes() {
         btnPedra.setVisible(false);
         btnPapel.setVisible(false);
-        btnTe.setVisible(false);
+        btnTesoura.setVisible(false);
     }
 
     private void mostrarResultado() {
@@ -219,7 +219,7 @@ public class Tela extends JFrame {
     private void recomecarJogo() {
         btnPedra.setVisible(true);
         btnPapel.setVisible(true);
-        btnTe.setVisible(true);
+        btnTesoura.setVisible(true);
         btnRecomecar.setVisible(false);
         empate.setVisible(false);
         jogadorGanhou.setVisible(false);

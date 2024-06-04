@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import br.com.anhembimorumbi.util.Constantes;
 import br.com.anhembimorumbi.util.Utils;
 
-public class Logica  implements Jogadas{
+public class Logica implements Jogadas {
 
     private int opcaoJogador;
 
@@ -27,11 +27,26 @@ public class Logica  implements Jogadas{
     public void setOpcaoJogador(int opcaoJogador) {
         this.opcaoJogador = opcaoJogador;
     }
+    
+    @Override
+    public void atualizarEscolhaJogador() {
+        switch (this.opcaoJogador) {
+            case PEDRA:
+                jogadorImg.setIcon(Utils.renderizandoIcone(Constantes.PEDRA_PNG));
+                break;
+            case PAPEL:
+                jogadorImg.setIcon(Utils.renderizandoIcone(Constantes.PAPEL_PNG));
+                break;
+            case TESOURA:
+                jogadorImg.setIcon(Utils.renderizandoIcone(Constantes.TESOURA_PNG));
+                break;
+        }
+    }
 
     @Override
     public void atualizarEscolhaComputador() {
         this.opcaoComputador = (int) (Math.random() * 3 + 1);
-        switch (opcaoComputador) {
+        switch (this.opcaoComputador) {
             case PEDRA:
                 computadorImg.setIcon(Utils.renderizandoIcone(Constantes.PEDRA_PNG));
                 break;
@@ -44,20 +59,6 @@ public class Logica  implements Jogadas{
         }
     }
 
-    @Override
-    public void atualizarEscolhaJogador() {
-        switch (opcaoJogador) {
-            case PEDRA:
-                jogadorImg.setIcon(Utils.renderizandoIcone(Constantes.PEDRA_PNG));
-                break;
-            case PAPEL:
-                jogadorImg.setIcon(Utils.renderizandoIcone(Constantes.PAPEL_PNG));
-                break;
-            case TESOURA:
-                jogadorImg.setIcon(Utils.renderizandoIcone(Constantes.TESOURA_PNG));
-                break;
-        }
-    }
 
     public String determinarResultado() {
         if (opcaoJogador == opcaoComputador) {
