@@ -23,6 +23,10 @@ import javax.swing.border.EmptyBorder;
 
 import br.com.anhembimorumbi.util.Utils;
 
+/**
+ * Classe responsável pela interface gráfica do jogo Jokenpo.
+ * Estende JFrame e configura os componentes visuais e a lógica do jogo.
+ */
 public class Tela extends JFrame {
 
     private JPanel contentPane;
